@@ -15,9 +15,9 @@ function App() {
       );
       setData(res.data);
     } catch (e) {
-      setErr(e.message); // Store the error message
+      setErr(e.message); 
       console.log(e);
-      alert(e.message); // Display an alert with the error message
+      alert(e); 
     }
   };
 
