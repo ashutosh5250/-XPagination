@@ -5,7 +5,6 @@ import "./App.css";
 function App() {
   const [data, setData] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
-  const [err, setErr] = useState("");
   const itemsPerPage = 10;
 
   const fetch = async () => {
@@ -15,8 +14,8 @@ function App() {
       );
       setData(res.data);
     } catch (e) {
-      setErr(e.message); // Store the error message
       console.log(e);
+      alert(e.message);
     }
   };
 
@@ -40,45 +39,37 @@ function App() {
       <div className="heading">
         <h1>Employee Data Table</h1>
       </div>
-      {err ? (
-        <div className="error">
-          <p>Error: {err}</p>
-        </div>
-      ) : (
-        <>
-          <div className="table">
-            <table style={{ width: "100%" }}>
-              <thead>
-                <tr>
-                  <th>Id</th>
-                  <th>Name</th>
-                  <th>Email</th>
-                  <th>Role</th>
-                </tr>
-              </thead>
-              <tbody>
-                {data.slice(startIndex, endIndex).map((employee) => (
-                  <tr key={employee.id}>
-                    <td>{employee.id}</td>
-                    <td>{employee.name}</td>
-                    <td>{employee.email}</td>
-                    <td>{employee.role}</td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
-          <div className="pagination">
-            <button onClick={handlePrevPage} disabled={currentPage === 1}>
-              Previous
-            </button>
-            <button>{currentPage}</button>
-            <button onClick={handleNextPage} disabled={endIndex >= data.length}>
-              Next
-            </button>
-          </div>
-        </>
-      )}
+      <div className="table">
+        <table style={{ width: "100%" }}>
+          <thead>
+            <tr>
+              <th>Id</th>
+              <th>Name</th>
+              <th>Email</th>
+              <th>Role</th>
+            </tr>
+          </thead>
+          <tbody>
+            {data.slice(startIndex, endIndex).map((employee) => (
+              <tr key={employee.id}>
+                <td>{employee.id}</td>
+                <td>{employee.name}</td>
+                <td>{employee.email}</td>
+                <td>{employee.role}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+      <div className="pagination">
+        <button onClick={handlePrevPage} disabled={currentPage === 1}>
+          Previous
+        </button>
+        <button>{currentPage}</button>
+        <button onClick={handleNextPage} disabled={endIndex >= data.length}>
+          Next
+        </button>
+      </div>
     </div>
   );
 }
